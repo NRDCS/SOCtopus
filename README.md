@@ -3,7 +3,7 @@ Flask API to assist with automating SOC functions from Security Onion
 
 Clone the repo:   
 
-`git clone https://github.com/weslambert/soctopus`
+`git clone https://github.com/NRDCS/soctopus`
 
 Change into directory:   
 `cd SOCtopus`
@@ -14,7 +14,15 @@ Edit the config file to include your URL and API key:
 
 Build the image and start the container:
 
-`sudo docker compose up -d`
+`sudo docker-compose build`
+`sudo docker run -d -p 127.0.0.1:7000:7000/tcp soctopus_soctopus`
+
+Rename the docker
+`sudo docker ps`
+`sudo docker rename trusting_albattani soctopus`
+
+Add the docker to the SO network
+`sudo docker network connect so-elastic-net soctopus`
 
 Add the following to `/etc/apache2/sites-available/securityonion.conf`:
 
