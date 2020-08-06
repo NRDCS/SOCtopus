@@ -41,7 +41,7 @@ def createHiveAlert(esid):
           host = str(result['_index']).split(":")[0]
           index = str(result['_index']).split(":")[1]
           event_type = result['_source']['event_type']
-
+	  
           if 'source_ip' in result['_source']:
               src = str(result['_source']['source_ip'])
           if 'destination_ip' in result['_source']:
@@ -282,21 +282,27 @@ def createRTIRIncident(esid):
         message = result['message']
         description = str(message)
         event_type = result['event_type']
+        rtir_text = ''
+        rtir_web = ''
+        for key, value in result.items():
+            rtir_web = rtir_web + str(key) + ': ' + str(value) + '<br>'
+            rtir_text = rtir_text + str(key) + ': ' + str(value) + '\n'
         rtir_url = parser.get('rtir', 'rtir_url')
-        rtir_uri = parser.get('rtir', 'rtir_api')
+        rtir_api = parser.get('rtir', 'rtir_api')
         rtir_user = parser.get('rtir', 'rtir_user')
         rtir_pass = parser.get('rtir', 'rtir_pass')
         rtir_queue = parser.get('rtir', 'rtir_queue')
         rtir_creator = parser.get('rtir', 'rtir_creator')
-        rtir_subject = 'New ' + event_type + ' event from Security Onion!'
-        rtir_text = description
-        rtir_rt = rt.Rt(rtir_url + '/' + rtir_api, rtir_user, rtir_pass, verify_cert=False)
+        rtir_url_ticket = parser.get('rtir', 'rtir_url_ticket')
+        rtir_classification = parser.get('rtir', 'rtir_classification')
+        rtir_subject = event_type + ' event from Indexer !'       
+        rtir_rt = rt.Rt(str(rtir_url) + '/' + str(rtir_api), rtir_user, rtir_pass, verify_cert=False)
         rtir_rt.login()
-        rtir_rt.create_ticket(Queue=rtir_queue, Owner=rtir_creator, Subject=rtir_subject, Text=rtir_text)
+        rtir_ticket_id = rtir_rt.create_ticket(Queue=rtir_queue, Owner=rtir_creator, Subject=rtir_subject, Text=rtir_text, **{'CF.{Classification}': 'Intrusion attempt'})
         rtir_rt.logout()
-    
+        rtir_url_ticket_full = rtir_url_ticket + str(rtir_ticket_id)
     # Redirect to RTIR instance
-    return redirect(rtir_url)
+    return "Ticket created!" + "\n Ticket url is: " + "<a href=" + rtir_url_ticket_full + ">" + rtir_url_ticket_full  + "</a>"
 
 def createSlackAlert(esid):
     search = getHits(esid)
