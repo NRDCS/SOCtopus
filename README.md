@@ -54,3 +54,6 @@ Add scripted field in Kibana. For example, for TheHive, name it `TheHive`, speci
 
 
 Test by clicking the hyperlinked field from an applicable log in Discover.  An alert should be sent to TheHive, and the user should be redirected to the alerts view.
+
+For `RTIR`:
+`'https://SECURITYONIONIP/soctopus/rtir/incident/' + doc['_id'].value`
