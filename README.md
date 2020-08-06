@@ -14,12 +14,12 @@ Edit the config file to include your URL and API key:
 
 Build the image and start the container:
 
-`sudo docker-compose build`
-`sudo docker run -d -p 127.0.0.1:7000:7000/tcp soctopus_soctopus`
+``sudo docker-compose build``
+``sudo docker run -d -p 127.0.0.1:7000:7000/tcp soctopus_soctopus``
 
 Rename the docker
-`sudo docker ps`
-`sudo docker rename trusting_albattani soctopus`
+``sudo docker ps``
+``sudo docker rename trusting_albattani soctopus``
 
 Add the docker to the SO network
 `sudo docker network connect so-elastic-net soctopus`
@@ -55,5 +55,5 @@ Add scripted field in Kibana. For example, for TheHive, name it `TheHive`, speci
 
 Test by clicking the hyperlinked field from an applicable log in Discover.  An alert should be sent to TheHive, and the user should be redirected to the alerts view.
 
-For `RTIR`:
-`'https://SECURITYONIONIP/soctopus/rtir/incident/' + doc['_id'].value`
+For RTIR:
+``'https://SECURITYONIONIP/soctopus/rtir/incident/' + doc['_id'].value``
