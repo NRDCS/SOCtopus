@@ -12,6 +12,9 @@ Edit the config file to include your URL and API key:
 
 `sudo vi SOCtopus.conf`
 
+Install docker-composer:
+sudo apt install docker-compose
+
 Build the image and start the container:
 
 ``sudo docker-compose build``
