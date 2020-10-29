@@ -16,14 +16,17 @@ Install docker-composer:
 
 ``sudo apt install docker-compose``
 
-Build the image and start the container:
+Build the image:
 
 ``sudo docker-compose build``
-``sudo docker run -d -p 127.0.0.1:7000:7000/tcp soctopus_soctopus``
 
 Rename the docker
 ``sudo docker ps``
-``sudo docker rename trusting_albattani soctopus``
+``sudo docker rename soctopus_soctopus soctopus``
+
+Start the container:
+
+``sudo docker run -d -p 127.0.0.1:7000:7000/tcp soctopus_soctopus``
 
 Add the docker to the SO network
 `sudo docker network connect so-elastic-net soctopus`
