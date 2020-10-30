@@ -24,9 +24,13 @@ Start the container:
 
 ``sudo docker ps``
 ``sudo docker run -d -p 127.0.0.1:7000:7000/tcp soctopus_soctopus``
+``sudo docker ps``
 
-Rename the docker:
-``sudo docker rename soctopus_soctopus soctopus``
+If docker image is running, rename the docker:
+``sudo docker rename <random name> soctopus``
+``sudo docker ps``
+
+Now docker ps command will display docker name as "soctopus".
 
 Add the docker to the SO network
 `sudo docker network connect so-elastic-net soctopus`
