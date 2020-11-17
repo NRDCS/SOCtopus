@@ -64,7 +64,7 @@ OR
                         AuthType shibboleth
                         ShibRequireSession On
                         ShibRequestSetting requireSession 1
-                        Require shib-attr memberOf 'CN=Master_Admins,OU=Admin,OU=Groups,DC=eg-fincirt,DC=org,DC=eg'
+                        Require shib-attr memberOf 'CN=Admins,....DC=domain2,DC=lt'
                         SessionCookieName session path=/;httponly;secure;
                         SessionCryptoPassphraseFile /etc/apache2/session
                         ErrorDocument 401 /login.html
