@@ -72,3 +72,17 @@ Test by clicking the hyperlinked field from an applicable log in Discover.  An a
 
 For RTIR:
 ``'https://SECURITYONIONIP/soctopus/rtir/incident/' + doc['_id'].value``
+
+For this docker integration with Kibana management, to start and stop together both dockers, add following to Kinana start script:
+
+`'                                echo "Configuring Kibana, please wait..."
+                                /usr/sbin/so-elastic-configure-kibana > /dev/null 2>&1
+                        fi
+                         echo "Starting Kibana - RTIR integration !"
+                         docker rm soctopus >/dev/null 2>&1
+                         sleep  2
+                         docker run -d --name soctopus -p 127.0.0.1:7000:7000/tcp soctopus
+                         docker network connect so-elastic-net soctopus
+                fi
+        fi
+fi `
