@@ -26,6 +26,10 @@ Start the container:
 ``sudo docker run -d -p 127.0.0.1:7000:7000/tcp soctopus_soctopus``
 ``sudo docker ps``
 
+After RC edit of docker-compose.yaml file, docker starts with :
+
+``docker run -d --name soctopus -p 127.0.0.1:7000:7000/tcp soctopus``
+
 If docker image is running, rename the docker:
 ``sudo docker rename <random name> soctopus``
 ``sudo docker ps``
