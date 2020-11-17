@@ -75,7 +75,7 @@ For RTIR:
 
 For this docker integration with Kibana management, to start and stop together both dockers, add following to Kinana start script:
 
-`'                                echo "Configuring Kibana, please wait..."
+``                                echo "Configuring Kibana, please wait..."
                                 /usr/sbin/so-elastic-configure-kibana > /dev/null 2>&1
                         fi
                          echo "Starting Kibana - RTIR integration !"
@@ -85,4 +85,4 @@ For this docker integration with Kibana management, to start and stop together b
                          docker network connect so-elastic-net soctopus
                 fi
         fi
-fi `
+fi ``
