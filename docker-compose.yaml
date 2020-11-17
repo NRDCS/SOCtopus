@@ -1,10 +1,9 @@
 version: "2"
-
 services:
-
   soctopus:
     container_name: soctopus
     build: ./
+    image: soctopus
     networks:
       - so-elastic-net
     volumes:
