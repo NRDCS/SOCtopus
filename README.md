@@ -57,6 +57,22 @@ Add the following to `/etc/apache2/sites-available/securityonion.conf`:
 </Location>
 
 ````
+OR
+
+````
+                <Location /soctopus>
+                        AuthType shibboleth
+                        ShibRequireSession On
+                        ShibRequestSetting requireSession 1
+                        Require shib-attr memberOf 'CN=Master_Admins,OU=Admin,OU=Groups,DC=eg-fincirt,DC=org,DC=eg'
+                        SessionCookieName session path=/;httponly;secure;
+                        SessionCryptoPassphraseFile /etc/apache2/session
+                        ErrorDocument 401 /login.html
+                        ProxyPass http://127.0.0.1:7000
+                        ProxyPassReverse http://127.0.0.1:7000
+                </Location>
+
+````
 
 Restart Apache:
 
@@ -73,7 +89,7 @@ Test by clicking the hyperlinked field from an applicable log in Discover.  An a
 For RTIR:
 ``'https://SECURITYONIONIP/soctopus/rtir/incident/' + doc['_id'].value``
 
-For this docker integration with Kibana management, to start and stop together both dockers, add following to Kinana start script:
+For this docker integration with Kibana management, to start and stop together both dockers, add following to Kibana start script:
 
 ````
 				echo "Configuring Kibana, please wait..."
@@ -87,5 +103,17 @@ For this docker integration with Kibana management, to start and stop together b
                 fi
         fi
 fi 
+
+````
+
+Kibana stop script : 
+
+````
+if [ "$KIBANA_ENABLED" = "yes" ] && docker ps | grep -q so-kibana; then
+        docker stop so-kibana
+        docker rm so-kibana >/dev/null 2>&1
+        docker  stop soctopus
+        docker rm soctopus >/dev/null 2>&1
+fi
 
 ````
