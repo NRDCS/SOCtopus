@@ -1,8 +1,8 @@
 FROM centos:7
 
-LABEL maintainer "Security Onion Solutions, LLC"
-LABEL version="SOCtopus v0.1 HH1.0.7"
-LABEL description="API for automating SOC-related functions"
+LABEL maintainer "NRDCS, Ltd"
+LABEL version="CS CollectiveSight v1.5"
+LABEL description="API for automating SOC ticketing functions"
 
 RUN yum update -y && yum -y install epel-release
 RUN yum -y install https://repo.ius.io/ius-release-el7.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
