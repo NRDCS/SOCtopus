@@ -96,10 +96,10 @@ For this docker integration with Kibana management, to start and stop together b
                                 /usr/sbin/so-elastic-configure-kibana > /dev/null 2>&1
                         fi
                          echo "Starting Kibana - RTIR integration !"
-                         docker rm soctopus >/dev/null 2>&1
+                         docker rm cs-octopus >/dev/null 2>&1
                          sleep  2
-                         docker run -d --name soctopus -p 127.0.0.1:7000:7000/tcp soctopus
-                         docker network connect so-elastic-net soctopus
+                         docker run -d --name cs-octopus -p 127.0.0.1:7000:7000/tcp cs-octopus
+                         docker network connect so-elastic-net cs-octopus
                 fi
         fi
 fi 
@@ -112,8 +112,8 @@ Kibana stop script :
 if [ "$KIBANA_ENABLED" = "yes" ] && docker ps | grep -q so-kibana; then
         docker stop so-kibana
         docker rm so-kibana >/dev/null 2>&1
-        docker  stop soctopus
-        docker rm soctopus >/dev/null 2>&1
+        docker  stop cs-octopus
+        docker rm cs-octopus >/dev/null 2>&1
 fi
 
 ````
