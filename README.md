@@ -18,7 +18,7 @@ Install docker-composer:
 
 Build the image:
 
-``sudo docker-compose build -t cs-soctopus:latest .``
+``sudo docker build -t cs-soctopus:latest .``
 
 Start the container:
 
