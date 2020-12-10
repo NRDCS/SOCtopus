@@ -18,26 +18,22 @@ Install docker-composer:
 
 Build the image:
 
-``sudo docker-compose build``
+``sudo docker-compose build -t cs-soctopus:latest .``
 
 Start the container:
 
 ``sudo docker ps``
-``sudo docker run -d -p 127.0.0.1:7000:7000/tcp soctopus_soctopus``
+``sudo docker run -d --name cs-soctopus -p 7000:7000 cs-soctopus``
 ``sudo docker ps``
 
 After RC edit of docker-compose.yaml file, docker starts with :
 
 ``docker run -d --name soctopus -p 127.0.0.1:7000:7000/tcp soctopus``
 
-If docker image is running, rename the docker:
-``sudo docker rename <random name> soctopus``
-``sudo docker ps``
-
 Now docker ps command will display docker name as "soctopus".
 
 Add the docker to the SO network
-`sudo docker network connect so-elastic-net soctopus`
+`sudo docker network connect so-elastic-net cs-soctopus`
 
 Add the following to `/etc/apache2/sites-available/securityonion.conf`:
 
