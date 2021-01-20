@@ -27,9 +27,9 @@ def sendHiveAlert(esid):
 def sendMISP(esid):
     return createMISPEvent(esid)
 
-@app.route("/rtir/incident/<esid>")
-def sendRTIR(esid):
-    return createRTIRIncident(esid)
+@app.route("/rtir/incident/<esid>/<_index>")
+def sendRTIR(esid, _index):
+    return createRTIRIncident(esid, _index)
 
 @app.route("/slack/<esid>")
 def sendSlack(esid):

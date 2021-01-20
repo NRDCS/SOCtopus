@@ -275,30 +275,34 @@ def createGRRFlow(esid, flow_name):
             else:
                 return "No matches found for source or destination ip"
 
-def createRTIRIncident(esid):
-    search = getHits(esid)
+def createRTIRIncident(esid, index):
+    search = getHits(esid, index)
     for result in search['hits']['hits']:
         result = result['_source']
         message = result['message']
         description = str(message)
         event_type = result['event_type']
         rtir_text = ''
-        rtir_web = ''
+        rtir_web = 'Content-type: text/html \n <!DOCTYPE html><html><head></head><body><table>'
         for key, value in result.items():
-            rtir_web = rtir_web + str(key) + ': ' + str(value) + '<br>'
+            rtir_web = rtir_web + '<tr><td>' + str(key) + '</td><td>' + str(value) + '</td></tr>'
             rtir_text = rtir_text + str(key) + ': ' + str(value) + '\n'
+        rtir_web = rtir_web + '</table></body></html>'
         rtir_url = parser.get('rtir', 'rtir_url')
         rtir_api = parser.get('rtir', 'rtir_api')
         rtir_user = parser.get('rtir', 'rtir_user')
         rtir_pass = parser.get('rtir', 'rtir_pass')
         rtir_queue = parser.get('rtir', 'rtir_queue')
-        rtir_creator = parser.get('rtir', 'rtir_creator')
+        #rtir_owner = parser.get('rtir', 'rtir_owner')
         rtir_url_ticket = parser.get('rtir', 'rtir_url_ticket')
         rtir_classification = parser.get('rtir', 'rtir_classification')
-        rtir_subject = event_type + ' event from Indexer !'       
+        rtir_dataset = result['event.dataset']
+        rtir_category = result['event.category']
+        rtir_subject_line = parser.get('rtir', 'rtir_subject')
+        rtir_subject = 'Event type: ' + rtir_category + ', event from: ' + rtir_dataset       
         rtir_rt = rt.Rt(str(rtir_url) + '/' + str(rtir_api), rtir_user, rtir_pass, verify_cert=False)
         rtir_rt.login()
-        rtir_ticket_id = rtir_rt.create_ticket(Queue=rtir_queue, Owner=rtir_creator, Subject=rtir_subject, Text=rtir_text, **{'CF.{Classification}': 'Intrusion attempt'})
+        rtir_ticket_id = rtir_rt.create_ticket(Queue=rtir_queue, Subject=rtir_subject, Text=rtir_text, **{'CF.{Classification}': rtir_classification})
         rtir_rt.logout()
         rtir_url_ticket_full = rtir_url_ticket + str(rtir_ticket_id)
     # Redirect to RTIR instance
