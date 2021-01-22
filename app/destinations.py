@@ -296,8 +296,8 @@ def createRTIRIncident(esid, index):
         #rtir_owner = parser.get('rtir', 'rtir_owner')
         rtir_url_ticket = parser.get('rtir', 'rtir_url_ticket')
         rtir_classification = parser.get('rtir', 'rtir_classification')
-        rtir_dataset = result['event.dataset']
-        rtir_category = result['event.category']
+        rtir_dataset = result['event']['dataset']
+        rtir_category = result['event']['category']
         rtir_subject_line = parser.get('rtir', 'rtir_subject')
         rtir_subject = 'Event type: ' + rtir_category + ', event from: ' + rtir_dataset       
         rtir_rt = rt.Rt(str(rtir_url) + '/' + str(rtir_api), rtir_user, rtir_pass, verify_cert=False)
