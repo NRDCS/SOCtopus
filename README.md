@@ -83,7 +83,8 @@ Add scripted field in Kibana. For example, for TheHive, name it `TheHive`, speci
 Test by clicking the hyperlinked field from an applicable log in Discover.  An alert should be sent to TheHive, and the user should be redirected to the alerts view.
 
 For RTIR:
-``'https://SECURITYONIONIP/soctopus/rtir/incident/' + doc['_id'].value``
+``'https://idx-master.xxx.local/soctopus/rtir/incident/' + doc['_id'].value +'/' + doc['_index'].value``
+
 
 For this docker integration with Kibana management, to start and stop together both dockers, add following to Kibana start script:
 
